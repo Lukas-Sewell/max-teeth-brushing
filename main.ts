@@ -3,50 +3,35 @@ input.onButtonPressed(Button.A, function () {
     images.iconImage(IconNames.Yes).showImage(0)
 })
 input.onButtonPressed(Button.B, function () {
-    basic.clearScreen()
+    seconds = seconds + 3600
+    basic.showNumber(Math.round(seconds / 3600))
+    images.iconImage(IconNames.No).showImage(0)
 })
+let seconds = 0
 images.iconImage(IconNames.No).showImage(0)
-let secondsSinceMidnight = 65700
-basic.forever(function () {
-    images.iconImage(IconNames.Yes).showImage(0)
-    basic.pause(100)
-    led.setBrightness(237)
-    basic.pause(100)
-    led.setBrightness(184)
-    basic.pause(100)
-    led.setBrightness(152)
-    basic.pause(100)
-    led.setBrightness(104)
-    basic.pause(100)
-    led.setBrightness(73)
-    basic.pause(100)
-    led.setBrightness(37)
-    basic.pause(100)
-    led.setBrightness(6)
-    basic.pause(100)
-    led.setBrightness(37)
-    basic.pause(100)
-    led.setBrightness(73)
-    basic.pause(100)
-    led.setBrightness(104)
-    basic.pause(100)
-    led.setBrightness(152)
-    basic.pause(100)
-    led.setBrightness(184)
-    basic.pause(100)
-    led.setBrightness(237)
-})
+seconds = 0
+let endOfDay = 86400
 // SAD FACE RESET
 basic.forever(function () {
-    if (secondsSinceMidnight == 86400) {
+    if (seconds == endOfDay) {
         images.iconImage(IconNames.No).showImage(0)
+    }
+})
+basic.forever(function () {
+    for (let index = 0; index <= 255; index++) {
+        led.setBrightness(index)
+        basic.pause(1)
+    }
+    for (let index2 = 255; index2 > 0; index2--) {
+        led.setBrightness(index2)
+        basic.pause(1)
     }
 })
 // CLOCK
 basic.forever(function () {
     basic.pause(1000)
-    secondsSinceMidnight += 1
-    if (secondsSinceMidnight == 86400) {
-        secondsSinceMidnight = 0
+    seconds += 1
+    if (seconds > endOfDay) {
+        seconds = 0
     }
 })
